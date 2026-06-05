@@ -5,7 +5,7 @@ out = "out"
 libs = ["lib"]
 
 [rpc_endpoints]
-sepolia = "${SEPOLIA_RPC_URL}"
+sepolia = "${ETHEREUM_SEPOLIA_RPC_URL}"
 base-sepolia = "${BASE_SEPOLIA_RPC_URL}"
 mainnet = "${ETHEREUM_RPC_URL}"
 zk-sepolia = "${ZK_SEPOLIA_RPC_URL}"
