@@ -4,6 +4,12 @@
 Full-stack Web 3 Token project  
 
 
+### Status
+Work in progress 🚧
+
+### To-dos
+- Make front-end
+
 ### Branches
 - main — own development
 - study — finished as course
