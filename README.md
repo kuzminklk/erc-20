@@ -11,8 +11,8 @@ Work in progress 🚧
 - Make front-end
 
 ### Branches
-- main — own development
-- study — finished as course
+- main (this)—own way development
+- study—finished as course, cleaned up
 
 ### Development path
 1. Finished course 
