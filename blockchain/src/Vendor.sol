@@ -8,6 +8,9 @@ import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
 
+/**
+ * @notice Exchange ETH for Strawberry tokens
+ */
 contract Vendor is Ownable {
 	uint256 public constant TOKENS_PER_ETH = 100;
 	IERC20 public token;
@@ -23,7 +26,7 @@ contract Vendor is Ownable {
 		token = IERC20(tokenAddress);
 	}
 
-	function buyTokens() public payable {
+	function buyStrawberries() public payable {
 		uint256 amountToBuy = msg.value * TOKENS_PER_ETH;
 		uint256 vendorBalance = token.balanceOf(address(this));
 
