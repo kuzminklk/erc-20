@@ -5,6 +5,11 @@
 pragma solidity ^0.8.26;
 
 
+/**
+ * @notice Tokenized BYN of Kuzmin's Company
+ * @dev Implements ERC-20 manually
+ * @dev Incomplete study example
+ */
 contract KBYN {
 
 	error KBYN__NotEnoughtTokens();
@@ -26,7 +31,7 @@ contract KBYN {
 		return 6;
 	}
 
-	function totalSypply() public pure returns (uint256) {
+	function totalSupply() public pure returns (uint256) {
 		return 1000000000 * 10 ** decimals();
 	}
 	
@@ -48,5 +53,9 @@ contract KBYN {
 		// Interactions
 		emit Transfer();
 		success = true;
+	}
+
+	function mint(address _to, uint256 _amount) public {
+		s_balances[_to] += _amount;
 	}
 }

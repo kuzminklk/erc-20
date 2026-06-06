@@ -11,10 +11,15 @@ contract DeployManualERC20 is Script {
 	function run() external returns (KBYN) {
 		vm.startBroadcast();
 
-		KBYN KBYNContract = new KBYN();
+		KBYN KBYNContract = deploy();
 
 		vm.stopBroadcast();
 
+		return KBYNContract;
+	}
+
+	function deploy() public returns (KBYN) {
+		KBYN KBYNContract = new KBYN();
 		return KBYNContract;
 	}
 }

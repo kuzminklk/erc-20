@@ -11,25 +11,21 @@ import { DeployManualERC20 } from "../script/DeployManualERC20.s.sol";
 
 
 contract ManualERC20Test is Test {
+
+	uint256 constant STARTING_BALANCE = 100 ether; // 100 tokens with default 1e18 percision
+
 	KBYN public KBYNContract;
 	DeployManualERC20 public deployer;
 
-	address bob = makeAddr("Bob");
-	address alice = makeAddr("Alice");
-
-	uint8 constant DECIMALS = 6;
-	uint256 constant STARTING_BALANCE = 100 * 10 ** DECIMALS;
+	address user = makeAddr("user");
 
 	function setUp() public {
 		deployer = new DeployManualERC20();
-		KBYNContract = deployer.run();
-
-		vm.prank(msg.sender);
-		KBYNContract.transfer(bob, STARTING_BALANCE);
+		KBYNContract = deployer.deploy();
 	}
 
-	function testBobBalance() public {
-		assertEq(STARTING_BALANCE, KBYNContract.balanceOf(bob));
+	function test_Mint_IncreasesUserBalance() public {
+		KBYNContract.mint(user, STARTING_BALANCE);
+		assertEq(STARTING_BALANCE, KBYNContract.balanceOf(user));
 	}
-	
 }

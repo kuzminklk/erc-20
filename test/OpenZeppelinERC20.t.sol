@@ -11,38 +11,42 @@ import { DeployOpenZeppelinERC20 } from "../script/DeployOpenZeppelinERC20.s.sol
 
 
 contract OpenZeppelinERC20Test is Test {
+
+	uint256 constant STARTING_BALANCE = 100 ether; // 100 tokens with default 1e18 percision
+
 	KBYN public KBYNContract;
 	DeployOpenZeppelinERC20 public deployer;
 
-	address bob = makeAddr("Bob");
-	address alice = makeAddr("Alice");
+	address user1 = makeAddr("user1");
+	address user2 = makeAddr("user2");
 
-	uint8 constant DECIMALS = 6;
-	uint256 constant STARTING_BALANCE = 10 ether;
 
 	function setUp() public {
 		deployer = new DeployOpenZeppelinERC20();
-		KBYNContract = deployer.run();
-
-		vm.prank(msg.sender);
-		KBYNContract.transfer(bob, STARTING_BALANCE);
+		KBYNContract = deployer.deploy();
 	}
 
-	function testBobBalance() public {
-		assertEq(STARTING_BALANCE, KBYNContract.balanceOf(bob));
+	function test_Transfer_IncreasesUser1Balance() public {
+		vm.prank(address(deployer));
+			KBYNContract.transfer(user1, STARTING_BALANCE);
+
+		assertEq(STARTING_BALANCE, KBYNContract.balanceOf(user1));
 	}
 
-	function testAllowanceWorks() public {
-		uint256 initialAllowance = 1 ether;
+	function test_AllowanceAndTransfer_DecreasesUser1BalanceIncreasesUser2Balance() public {
+		vm.prank(address(deployer));
+			KBYNContract.transfer(user1, STARTING_BALANCE);
 
-		vm.prank(bob);
-		KBYNContract.approve(alice, initialAllowance);
+		uint256 allowance = 1 ether;
 
-		vm.prank(alice);
-		KBYNContract.transferFrom(bob, alice, initialAllowance);
+		vm.prank(user1);
+			KBYNContract.approve(user2, allowance);
 
-		assertEq(KBYNContract.balanceOf(alice), initialAllowance);
-		assertEq(KBYNContract.balanceOf(bob), STARTING_BALANCE - initialAllowance);
+		vm.prank(user2);
+			KBYNContract.transferFrom(user1, user2, allowance);
+
+		assertEq(KBYNContract.balanceOf(user1), STARTING_BALANCE - allowance);
+		assertEq(KBYNContract.balanceOf(user2), allowance);
 	}
 	
 }
