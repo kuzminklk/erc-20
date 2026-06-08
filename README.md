@@ -3,9 +3,12 @@
 ### Description
 Full-stack Web 3 Token project  
 
+### Purpose
+Part of Advanced Foundry course from Cyfrin Updraft and as submodule in [appropriate repository](https://github.com/kuzminklk/cyfrin-updraft)  
+
 
 ### Status
-Work in progress 🚧
+Work in progress 🚧 (building front-end)
 
 ### To-dos
 - Make front-end
