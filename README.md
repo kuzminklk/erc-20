@@ -8,10 +8,11 @@ Part of Advanced Foundry course from Cyfrin Updraft and as submodule in [appropr
 
 
 ### Status
-Work in progress 🚧 (building front-end)
+Smart-contract: finished, tested locally, deployed
+Web UI: Work in progress 🚧
 
 ### To-dos
-- Make front-end
+- Make Web UI
 
 ### Branches
 - main (this)—own way development

@@ -35,7 +35,7 @@ contract TestSystem is Test {
 		uint256 expectedAmountOfTokens = amountToBuy * vendorContract.TOKENS_PER_ETH();
 
 		vm.startPrank(user1);
-			vendorContract.buyTokens{ value: amountToBuy }();
+			vendorContract.buyStrawberries{ value: amountToBuy }();
 		vm.stopPrank();
 
 		uint256 userTokensBalance = strawberryContract.balanceOf(user1);
@@ -48,7 +48,7 @@ contract TestSystem is Test {
 
 		vm.startPrank(user1);
 			vm.expectRevert(Vendor.NotEnoughTokensInVendor.selector);
-			vendorContract.buyTokens{ value: amountToBuy }();
+			vendorContract.buyStrawberries{ value: amountToBuy }();
 		vm.stopPrank();
 	} 
 }
