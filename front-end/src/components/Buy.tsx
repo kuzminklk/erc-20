@@ -1,0 +1,66 @@
+
+
+import { useState } from "react";
+import { useWriteContract, useWaitForTransactionReceipt, useConnection } from "wagmi";
+import { parseEther } from "viem";
+
+
+const CONTRACT_ADDRESS = "0x93E34494ACdd8f7300c83254E08a19010921cCa2";
+
+const CONTRACT_ABI = [
+	{
+		"type": "function",
+		"name": "buyTokens",
+		"inputs": [],
+		"outputs": [],
+		"stateMutability": "payable"
+	}
+] as const;
+
+export function Buy() {
+	const [etherAmount, setEtherAmount] = useState("0.01");
+	const { isConnected } = useConnection();
+
+	const { data: hash, error, isPending, writeContract } = useWriteContract();
+	const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
+
+	function handleBuy() {
+		writeContract({
+			address: CONTRACT_ADDRESS,
+			abi: CONTRACT_ABI,
+			functionName: "buyTokens",
+			value: parseEther(etherAmount),
+			gas: 300_000n
+		})
+	}
+
+	return (
+		<>
+			{isConnected && (
+				<section>
+					<div>
+						<label><h3>Amount of Ether to spend</h3></label>
+						<input 
+							type="number"
+							value={etherAmount}
+							onChange={(event) => setEtherAmount(event.target.value)}
+							disabled={isPending || isConfirming}
+						/>
+						<button 
+							onClick={handleBuy}
+							disabled={isPending || isConfirming}
+						>
+							{ isPending ? "Confirming in Wallet…" : isConfirming ? "Baking on chain…" : "Buy Strawberries! 🍓" }
+						</button>
+					</div>
+					<div>
+						{hash && <p>Hash: {hash}</p>}
+						{isConfirming && <p>Transaction is being confirmed...</p>}
+						{isSuccess && <p>Success! 🎉</p>}
+						{error && <p>Error: {error.message}</p>}
+					</div>
+				</section>
+			)}
+		</>
+	);
+}
