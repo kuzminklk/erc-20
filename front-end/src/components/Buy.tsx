@@ -38,26 +38,29 @@ export function Buy() {
 		<>
 			{isConnected && (
 				<section>
-					<div>
-						<label><h3>Amount of Ether to spend</h3></label>
-						<input 
-							type="number"
-							value={etherAmount}
-							onChange={(event) => setEtherAmount(event.target.value)}
-							disabled={isPending || isConfirming}
-						/>
+					<div className="controllers">
+						<div className="amount">
+							<label><h3>Amount of Ether 💰 to spend:</h3></label>
+							<input 
+								type="number"
+								value={etherAmount}
+								step="0.01"
+								onChange={(event) => setEtherAmount(event.target.value)}
+								disabled={isPending || isConfirming}
+							/>
+						</div>
 						<button 
 							onClick={handleBuy}
 							disabled={isPending || isConfirming}
 						>
-							{ isPending ? "Confirming in Wallet…" : isConfirming ? "Baking on chain…" : "Buy Strawberries! 🍓" }
+							{ isPending ? "Confirming in Wallet…" : isConfirming ? "Baking on chain…" : "Buy Strawberries! 🌿" }
 						</button>
 					</div>
-					<div>
-						{hash && <p>Hash: {hash}</p>}
-						{isConfirming && <p>Transaction is being confirmed...</p>}
-						{isSuccess && <p>Success! 🎉</p>}
-						{error && <p>Error: {error.message}</p>}
+					<div className="information">
+						{isSuccess && <p>🎉 Success!</p>}
+						{isConfirming && <p>⏱️ Transaction is being confirmed…</p>}
+						{hash && <p>📜 Hash: {hash}</p>}
+						{error && <p>‼️ {error.shortMessage}</p>}
 					</div>
 				</section>
 			)}
