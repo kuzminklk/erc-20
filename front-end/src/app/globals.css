@@ -13,15 +13,12 @@ body {
 	background-image: linear-gradient(rgba(256,256,256, 1), rgba(256,256,256, 0.85)), url("/strawberry-pattern.svg");
 	background-size: 5rem;
 
-	animation: move 15s ease-in-out infinite;
+	animation: move 10s linear infinite;
 }
 
 @keyframes move {
 	0% {
 		background-position: 0 0;
-	}
-	50% {
-		background-position: 2.5rem 2.5rem;
 	}
 	100% {
 		background-position: 5rem 0;
@@ -37,6 +34,14 @@ header {
 	justify-content: space-around;
 	align-items: center;
 	gap: 1rem;
+
+	div.connect-button-skeleton {
+		width: 9rem;
+		height: 1.9rem;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
 }
 
 p {
@@ -75,9 +80,9 @@ main {
 				box-shadow: -4px 4px black;
 				font-size: inherit;
 				font-family: inherit;
-				transition: all 0.1s;
 				background-color: #ff2200;
 				color: white;
+				transition: all 0.1s;
 			}
 
 			button:active {
@@ -96,6 +101,18 @@ main {
 		div.information {
 			flex-direction: column;
 			gap: 1rem;
+		}
+	}
+
+	section.skeleton {
+		div.controllers {
+			button {
+				background-color: #b51800
+			}
+
+			button:active {
+				box-shadow: -4px 4px black;
+			}
 		}
 	}
 }

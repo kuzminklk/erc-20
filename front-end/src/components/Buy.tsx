@@ -36,7 +36,7 @@ export function Buy() {
 
 	return (
 		<>
-			{isConnected && (
+			{isConnected ? (
 				<section>
 					<div className="controllers">
 						<div className="amount">
@@ -61,6 +61,22 @@ export function Buy() {
 						{isConfirming && <p>⏱️ Transaction is being confirmed…</p>}
 						{hash && <p>📜 Hash: {hash}</p>}
 						{error && <p>‼️ {error.shortMessage}</p>}
+					</div>
+				</section>
+			) : (
+				<section className="skeleton">
+					<div className="controllers">
+						<div className="amount">
+							<label><h3>Amount of Ether 💰 to spend:</h3></label>
+							<input 
+								type="number"
+								placeholder="0.01"
+								disabled
+							/>
+						</div>
+						<button disabled>
+							Buy Strawberries! ⏳
+						</button>
 					</div>
 				</section>
 			)}
