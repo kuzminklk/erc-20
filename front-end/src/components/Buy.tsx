@@ -75,7 +75,7 @@ export function Buy() {
 							/>
 						</div>
 						<button disabled>
-							Buy Strawberries! ⏳
+							Buy Strawberries!<span className="emoji">⏳</span>
 						</button>
 					</div>
 				</section>

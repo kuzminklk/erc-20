@@ -26,7 +26,8 @@ body {
 }
 
 header {
-	height: 4.75rem;
+	min-height: 4.75rem;
+	padding: 1rem;
 	border-bottom: 6px black solid;
 	background-color: white;
 
@@ -34,6 +35,10 @@ header {
 	justify-content: space-around;
 	align-items: center;
 	gap: 1rem;
+
+	h2 {
+		margin: 0;
+	}
 
 	div.connect-button-skeleton {
 		width: 9rem;
@@ -49,7 +54,7 @@ p {
 }
 
 main {
-	padding: 7.6rem;
+	padding: 7.5rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -83,6 +88,12 @@ main {
 				background-color: #ff2200;
 				color: white;
 				transition: all 0.1s;
+				transition: box-shadow 0.25s ease;
+				cursor: pointer;
+			}
+
+			button:hover:not(:disabled) {
+				box-shadow: -6px 6px black;
 			}
 
 			button:active {
@@ -107,11 +118,45 @@ main {
 	section.skeleton {
 		div.controllers {
 			button {
-				background-color: #b51800
+				background-color: #b51800;
+				cursor: not-allowed;
 			}
 
 			button:active {
 				box-shadow: -4px 4px black;
+			}
+		}
+	}
+
+	.emoji {
+		display: inline-block;
+		margin-left: 0.45em;
+		animation: rotate 2.5s linear infinite;
+	}
+}
+
+@keyframes rotate {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@media screen and (max-width: 730px) {
+	header {
+		flex-direction: column;
+	}
+
+	main {
+		padding: 5rem;
+		section {
+			gap: 1rem;
+			div.controllers {
+				gap: 3rem;
+
+				div.amount {
+					flex-direction: column;
+					gap: 0;
+				}
 			}
 		}
 	}
