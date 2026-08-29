@@ -15,10 +15,7 @@ const config = createConfig(
 		chains: [sepolia],
 		walletConnectProjectId: process.env.NEXT_PUBLIC_REOWN_PROJECT_ID,
 		appName: "Strawberry Vendor",
-		ssr: true,
-		connectors: [
-			injected({ target: "metaMask"})
-		]
+		ssr: true
 	})
 )
 
