@@ -13,7 +13,8 @@ const config = createConfig(
 	getDefaultConfig({
 		chains: [sepolia],
 		walletConnectProjectId: process.env.NEXT_PUBLIC_REOWN_PROJECT_ID,
-		appName: "Strawberry Vendor"
+		appName: "Strawberry Vendor",
+		ssr: true
 	})
 )
 

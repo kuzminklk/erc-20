@@ -1,5 +1,8 @@
 
 
+"use client"
+
+
 import { useState } from "react";
 import { useWriteContract, useWaitForTransactionReceipt, useConnection } from "wagmi";
 import { parseEther } from "viem";
