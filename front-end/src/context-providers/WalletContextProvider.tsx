@@ -3,31 +3,46 @@
 "use client"
 
 
-import { WagmiProvider, createConfig } from "wagmi";
-import { injected } from "wagmi/connectors";
-import { sepolia } from "wagmi/chains";
+import React, { type ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+import { createAppKit } from "@reown/appkit/react";
+import { cookieToInitialState, WagmiProvider, type Config } from "wagmi";
+import { sepolia } from "@reown/appkit/networks"
 
+import { wagmiAdapter, configuration, projectId } from "@/configuration/wagmi";
 
-const config = createConfig(
-	getDefaultConfig({
-		chains: [sepolia],
-		walletConnectProjectId: process.env.NEXT_PUBLIC_REOWN_PROJECT_ID,
-		appName: "Strawberry Vendor",
-		ssr: true
-	})
-)
 
 const queryClient = new QueryClient();
 
-export function WalletContextProvider({ children }) {
+if (!projectId) {
+  throw new Error('Project ID is not defined')
+}
+
+const metadata = {
+	name: "Strawberry Vendor",
+	description: "Strawberry tokens vendor",
+	url: "https://strawberry-vendor.vercel.app/",
+	icons: ["https://avatars.githubusercontent.com/u/179229932"]
+}
+
+const modal = createAppKit({
+	adapters: [wagmiAdapter],
+	projectId,
+	networks: [sepolia],
+	defaultNetwork: sepolia,
+	metadata: metadata,
+	features:{
+		analytics: true
+	}
+})
+
+export function WalletContextProvider({ children, cookies }: { children: ReactNode; cookies: string | null }) {
+	const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig as Config, cookies);
+
 	return (
-		<WagmiProvider config={config}>
+		<WagmiProvider config={configuration as Config} initialState={initialState}>
 			<QueryClientProvider client={queryClient}>
-				<ConnectKitProvider theme="retro">
 					{children}
-				</ConnectKitProvider>
 			</QueryClientProvider>
 		</WagmiProvider>
 	)
