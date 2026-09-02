@@ -33,7 +33,12 @@ const modal = createAppKit({
 	metadata: metadata,
 	features:{
 		analytics: true
-	}
+	},
+	themeVariables: {
+		"--apkt-font-family": "Red Hat Mono",
+		"--apkt-font-size-master": "12"
+	},
+	themeMode: "light"
 })
 
 export function WalletContextProvider({ children, cookies }: { children: ReactNode; cookies: string | null }) {
