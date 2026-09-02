@@ -4,8 +4,12 @@
 
 
 import { useState } from "react";
-import { useWriteContract, useWaitForTransactionReceipt, useConnection } from "wagmi";
+import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import { parseEther } from "viem";
+import { useAppKit } from "@reown/appkit/react"
+import { useAppKitState } from "@reown/appkit/react";
+import { useAppKitAccount } from "@reown/appkit/react";
+import { AppKitButton } from "@reown/appkit/react";
 
 
 const CONTRACT_ADDRESS = "0x93E34494ACdd8f7300c83254E08a19010921cCa2";
@@ -22,10 +26,15 @@ const CONTRACT_ABI = [
 
 export function Buy() {
 	const [etherAmount, setEtherAmount] = useState("0.01");
-	const { isConnected } = useConnection();
 
 	const { data: hash, error, isPending, writeContract } = useWriteContract();
 	const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
+
+	const {initialized, loading, selectedNetworkId, activeChain} = useAppKitState();
+
+	const { open, close } = useAppKit();
+
+	const { isConnected } = useAppKitAccount();
 
 	function handleBuy() {
 		writeContract({
@@ -37,52 +46,42 @@ export function Buy() {
 		})
 	}
 
+	const handleButtonClick = () => {
+		if (!isConnected) {
+			open();
+		} else {
+			handleBuy();
+		}
+	}
+
 	return (
 		<>
-			{isConnected ? (
-				<section>
-					<div className="controllers">
-						<div className="amount">
-							<label><h3>Amount of Ether 💰 to spend:</h3></label>
-							<input 
-								type="number"
-								value={etherAmount}
-								step="0.01"
-								onChange={(event) => setEtherAmount(event.target.value)}
-								disabled={isPending || isConfirming}
-							/>
-						</div>
-						<button 
-							onClick={handleBuy}
+			<section>
+				<div className="controllers">
+					<div className="amount">
+						<label><h3>Amount of Ether 💰 to spend:</h3></label>
+						<input 
+							type="number"
+							value={etherAmount}
+							step="0.01"
+							onChange={(event) => setEtherAmount(event.target.value)}
 							disabled={isPending || isConfirming}
-						>
-							{ isPending ? "Confirming in Wallet…" : isConfirming ? "Baking on chain…" : "Buy Strawberries! 🌿" }
-						</button>
+						/>
 					</div>
-					<div className="information">
-						{isSuccess && <p>🎉 Success!</p>}
-						{isConfirming && <p>⏱️ Transaction is being confirmed…</p>}
-						{hash && <p>📜 Hash: {hash}</p>}
-						{error && <p>‼️ {error.shortMessage}</p>}
-					</div>
-				</section>
-			) : (
-				<section className="skeleton">
-					<div className="controllers">
-						<div className="amount">
-							<label><h3>Amount of Ether 💰 to spend:</h3></label>
-							<input 
-								type="number"
-								placeholder="0.01"
-								disabled
-							/>
-						</div>
-						<button disabled>
-							Buy Strawberries!<span className="emoji">⏳</span>
-						</button>
-					</div>
-				</section>
-			)}
+					<button 
+						onClick={handleButtonClick}
+						disabled={isPending || isConfirming}
+					>
+						{ isPending ? "Confirming in Wallet…" : isConfirming ? "Baking on chain…" : isConnected ? "Buy Strawberries! 🌿" : "Connect Wallet 👛" }
+					</button>
+				</div>
+				<div className="information">
+					{isSuccess && <p>🎉 Success!</p>}
+					{isConfirming && <p>⏱️ Transaction is being confirmed…</p>}
+					{hash && <p>📜 Hash: {hash}</p>}
+					{error && <p>‼️ {error.shortMessage}</p>}
+				</div>
+			</section>
 		</>
 	);
 }

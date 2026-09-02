@@ -3,6 +3,7 @@
 	height: 100%;
 	font-size: calc(16px + 0.5vh);
 	font-family: "Red Hat Mono", monospace;
+	--accent-color: #e02f14;
 }
 
 body {
@@ -142,10 +143,6 @@ main {
 	header {
 		flex-direction: column;
 		padding: 1rem;
-
-		h2 {
-			text-align: center;
-		}
 	}
 
 	main {

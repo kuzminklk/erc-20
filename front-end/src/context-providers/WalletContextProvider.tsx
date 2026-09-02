@@ -36,7 +36,8 @@ const modal = createAppKit({
 	},
 	themeVariables: {
 		"--apkt-font-family": "Red Hat Mono",
-		"--apkt-font-size-master": "12"
+		"--apkt-font-size-master": "12",
+		"--apkt-accent": "#e02f14"
 	},
 	themeMode: "light"
 })
