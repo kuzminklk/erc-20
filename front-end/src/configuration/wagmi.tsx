@@ -1,25 +1,22 @@
+import { cookieStorage, createStorage, http } from "wagmi"
+import { WagmiAdapter } from "@reown/appkit-adapter-wagmi"
+import { mainnet, sepolia } from "@reown/appkit/networks"
 
-
-import { cookieStorage, createStorage, http } from "wagmi";
-import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
-import { mainnet, sepolia } from "@reown/appkit/networks";
-
-
-export const projectId = process.env.NEXT_PUBLIC_REOWN_PROJECT_ID;
+export const projectId = process.env.NEXT_PUBLIC_REOWN_PROJECT_ID
 
 if (!projectId) {
-	throw new Error("Reown project ID is missing!");
+	throw new Error("Reown project ID is missing!")
 }
 
-export const networks = [sepolia];
+export const networks = [sepolia]
 
 export const wagmiAdapter = new WagmiAdapter({
 	storage: createStorage({
-		storage: cookieStorage
+		storage: cookieStorage,
 	}),
 	ssr: true,
 	projectId,
-	networks
+	networks,
 })
 
-export const configuration = wagmiAdapter.wagmiConfig;
+export const configuration = wagmiAdapter.wagmiConfig

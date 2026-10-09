@@ -10,20 +10,19 @@ Part of Advanced Foundry course from Cyfrin Updraft and as submodule in [appropr
 
 ### Technologies
 
-Development: Visual Studio Code
+Development: Visual Studio Code  
 Programming language: Solidity  
 Environment: Foundry  
 Network: Ethereum  
-Standards: ERC-20
-Smart-contracts: OpenZeppelin
-Formatting: “.editorconfig”, “.vscode/…”, Foundry, Prettier
+Standards: ERC-20  
+Smart-contracts: OpenZeppelin  
+Formatting: “.editorconfig”, “.vscode/…”, Foundry, Prettier  
 
 ## State
 
 ### Set up
 
-Install foundry dependences:
-`forge install`
+Install Foundry dependencies: `forge install`
 
 ### Use
 
