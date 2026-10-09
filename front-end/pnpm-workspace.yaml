@@ -1,4 +1,4 @@
 allowBuilds:
-  '@reown/appkit': true
+  "@reown/appkit": true
   sharp: false
   unrs-resolver: false

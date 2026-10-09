@@ -1,15 +1,12 @@
-
-
-// SPDX-License-Identifier: MIT  
+// SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.26;
 
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
-
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
- * @notice Exchange ETH for Strawberry tokens
+ *	@notice Exchange ETH for Strawberry tokens
  */
 contract Vendor is Ownable {
 	uint256 public constant TOKENS_PER_ETH = 100;
@@ -49,7 +46,7 @@ contract Vendor is Ownable {
 
 	function withdraw() public onlyOwner {
 		uint256 amount = address(this).balance;
-		(bool success, ) = msg.sender.call{ value: amount }("");
+		(bool success,) = msg.sender.call{value: amount}("");
 
 		if (!success) {
 			revert TransferFailed();

@@ -1,18 +1,15 @@
-
-
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.19;
 
-import { console, Test } from "forge-std/Test.sol";
+import {console, Test} from "forge-std/Test.sol";
 
-import { Strawberry } from "../src/Strawberry.sol";
-import { Vendor } from "../src/Vendor.sol";
-import { DeploySystem } from "../script/DeploySystem.s.sol";
-
+import {Strawberry} from "../src/Strawberry.sol";
+import {Vendor} from "../src/Vendor.sol";
+import {DeploySystem} from "../script/DeploySystem.s.sol";
 
 /**
- * @notice 
+ *	@notice
  */
 contract TestSystem is Test {
 	uint256 public constant USER_1_ETHER_BALANCE = 100000 ether;
@@ -20,7 +17,7 @@ contract TestSystem is Test {
 	DeploySystem public deployer;
 	Strawberry public strawberryContract;
 	Vendor public vendorContract;
-	
+
 	address public user1 = makeAddr("user1");
 
 	function setUp() public {
@@ -35,20 +32,20 @@ contract TestSystem is Test {
 		uint256 expectedAmountOfTokens = amountToBuy * vendorContract.TOKENS_PER_ETH();
 
 		vm.startPrank(user1);
-			vendorContract.buyStrawberries{ value: amountToBuy }();
+		vendorContract.buyStrawberries{value: amountToBuy}();
 		vm.stopPrank();
 
 		uint256 userTokensBalance = strawberryContract.balanceOf(user1);
 		assertEq(userTokensBalance, expectedAmountOfTokens);
-	} 
+	}
 
 	function test_Buy_WhenNotEnoughSupply_Reverts() public {
 		uint256 amountToBuy = 10000 ether;
 		uint256 expectedAmountOfTokens = amountToBuy * vendorContract.TOKENS_PER_ETH();
 
 		vm.startPrank(user1);
-			vm.expectRevert(Vendor.NotEnoughTokensInVendor.selector);
-			vendorContract.buyStrawberries{ value: amountToBuy }();
+		vm.expectRevert(Vendor.NotEnoughTokensInVendor.selector);
+		vendorContract.buyStrawberries{value: amountToBuy}();
 		vm.stopPrank();
-	} 
+	}
 }

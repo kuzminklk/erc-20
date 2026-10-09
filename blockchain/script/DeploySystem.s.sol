@@ -1,21 +1,18 @@
-
-
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.19;
 
-import { Script } from "forge-std/Script.sol";
+import {Script} from "forge-std/Script.sol";
 
-import { Strawberry } from "../src/Strawberry.sol";
-import { Vendor } from "../src/Vendor.sol";
-
+import {Strawberry} from "../src/Strawberry.sol";
+import {Vendor} from "../src/Vendor.sol";
 
 contract DeploySystem is Script {
 	uint256 public constant AMOUNT_TO_SELL = 100_000;
 
 	function run() external {
 		vm.startBroadcast();
-			deploy();
+		deploy();
 		vm.stopBroadcast();
 	}
 

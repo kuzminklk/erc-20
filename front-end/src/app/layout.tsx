@@ -1,12 +1,9 @@
+import type { Metadata } from "next"
+import { headers } from "next/headers"
+import { Red_Hat_Mono } from "next/font/google"
 
-
-import type { Metadata } from "next";
-import { headers } from "next/headers";
-import { Red_Hat_Mono } from "next/font/google";
-
-import { WalletContextProvider } from "@/context-providers/WalletContextProvider";
-import "./globals.css";
-
+import { WalletContextProvider } from "@/context-providers/WalletContextProvider"
+import "./globals.css"
 
 export const metadata: Metadata = {
 	title: "Strawberry!",
@@ -14,25 +11,23 @@ export const metadata: Metadata = {
 	icons: {
 		icon: [
 			{
-				url: "/strawberry.svg"
-			}
-		]
-	}
-};
+				url: "/strawberry.svg",
+			},
+		],
+	},
+}
 
-const redHatMono = Red_Hat_Mono({subsets: ["latin"], weight: "600"})
+const redHatMono = Red_Hat_Mono({ subsets: ["latin"], weight: "600" })
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
-	const headersObj = await headers();
-	const cookies = headersObj.get("cookies");
+	const headersObj = await headers()
+	const cookies = headersObj.get("cookies")
 
 	return (
 		<html lang="en" className={redHatMono.className}>
 			<body>
-				<WalletContextProvider cookies={cookies}>
-					{children}
-				</WalletContextProvider>  
+				<WalletContextProvider cookies={cookies}>{children}</WalletContextProvider>
 			</body>
 		</html>
-	);
+	)
 }

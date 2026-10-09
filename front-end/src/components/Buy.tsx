@@ -1,42 +1,38 @@
-
-
 "use client"
 
-
-import { useState } from "react";
-import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
-import { parseEther } from "viem";
+import { useState } from "react"
+import { useWriteContract, useWaitForTransactionReceipt } from "wagmi"
+import { parseEther } from "viem"
 import { useAppKit } from "@reown/appkit/react"
-import { useAppKitState } from "@reown/appkit/react";
-import { useAppKitAccount } from "@reown/appkit/react";
-import { AppKitButton } from "@reown/appkit/react";
+import { useAppKitState } from "@reown/appkit/react"
+import { useAppKitAccount } from "@reown/appkit/react"
+import { AppKitButton } from "@reown/appkit/react"
 
-import style from "./Buy.module.css";
+import style from "./Buy.module.css"
 
-
-const CONTRACT_ADDRESS = "0x93E34494ACdd8f7300c83254E08a19010921cCa2";
+const CONTRACT_ADDRESS = "0x93E34494ACdd8f7300c83254E08a19010921cCa2"
 
 const CONTRACT_ABI = [
 	{
-		"type": "function",
-		"name": "buyTokens",
-		"inputs": [],
-		"outputs": [],
-		"stateMutability": "payable"
-	}
-] as const;
+		type: "function",
+		name: "buyTokens",
+		inputs: [],
+		outputs: [],
+		stateMutability: "payable",
+	},
+] as const
 
 export function Buy() {
-	const [etherAmount, setEtherAmount] = useState("0.01");
+	const [etherAmount, setEtherAmount] = useState("0.01")
 
-	const { data: hash, error, isPending, writeContract } = useWriteContract();
-	const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
+	const { data: hash, error, isPending, writeContract } = useWriteContract()
+	const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash })
 
-	const {initialized, loading, selectedNetworkId, activeChain} = useAppKitState();
+	const { initialized, loading, selectedNetworkId, activeChain } = useAppKitState()
 
-	const { open, close } = useAppKit();
+	const { open, close } = useAppKit()
 
-	const { isConnected } = useAppKitAccount();
+	const { isConnected } = useAppKitAccount()
 
 	function handleBuy() {
 		writeContract({
@@ -44,15 +40,15 @@ export function Buy() {
 			abi: CONTRACT_ABI,
 			functionName: "buyTokens",
 			value: parseEther(etherAmount),
-			gas: 300_000n
+			gas: 300_000n,
 		})
 	}
 
 	const handleButtonClick = () => {
 		if (!isConnected) {
-			open();
+			open()
 		} else {
-			handleBuy();
+			handleBuy()
 		}
 	}
 
@@ -60,8 +56,10 @@ export function Buy() {
 		<section className={style.buy}>
 			<div className={style.controllers}>
 				<div className={style.amount}>
-					<label htmlFor="ether-amount"><h3>Amount of Ether 💰 to spend:</h3></label>
-					<input 
+					<label htmlFor="ether-amount">
+						<h3>Amount of Ether 💰 to spend:</h3>
+					</label>
+					<input
 						id="ether-amount"
 						type="number"
 						value={etherAmount}
@@ -70,11 +68,14 @@ export function Buy() {
 						disabled={isPending || isConfirming}
 					/>
 				</div>
-				<button 
-					onClick={handleButtonClick}
-					disabled={isPending || isConfirming}
-				>
-					{ isPending ? "Confirming in Wallet…" : isConfirming ? "Baking on chain…" : isConnected ? "Buy Strawberries! 🌿" : "Connect Wallet 👛" }
+				<button onClick={handleButtonClick} disabled={isPending || isConfirming}>
+					{isPending
+						? "Confirming in Wallet…"
+						: isConfirming
+							? "Baking on chain…"
+							: isConnected
+								? "Buy Strawberries! 🌿"
+								: "Connect Wallet 👛"}
 				</button>
 			</div>
 			<div className={style.feedback}>
@@ -84,5 +85,5 @@ export function Buy() {
 				{error && <p>‼️ {error.shortMessage}</p>}
 			</div>
 		</section>
-	);
+	)
 }

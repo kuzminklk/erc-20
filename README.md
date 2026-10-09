@@ -2,22 +2,23 @@
 
 ### Description
 
-Full-stack Web 3 Token project
+Ethereum token and web-interface for interactions
 
 ### Purpose
 
 Part of Advanced Foundry course from Cyfrin Updraft and as submodule in [appropriate repository](https://github.com/kuzminklk/cyfrin-updraft)
 
+### Technologies
+
+Development: Visual Studio Code  
+Formatting: “.editorconfig”, “.vscode/…”, Foundry, Prettier  
+
 ## State
 
 ### Status
 
-Smart-contract: finished, tested locally, deployed
-Web UI: Work in progress 🚧
-
-### To-dos
-
-- Make Web UI
+Smart-contract: finished, tested locally, deployed  
+Web UI: finished, deployed
 
 ### Branches
 
