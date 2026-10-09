@@ -11,7 +11,7 @@ Part of Advanced Foundry course from Cyfrin Updraft and as submodule in [appropr
 ### Technologies
 
 Development: Visual Studio Code  
-Formatting: “.editorconfig”, “.vscode/…”, Foundry, Prettier
+Formatting: “.editorconfig”, “.vscode/…”, Foundry, Prettier  
 
 ## State
 
